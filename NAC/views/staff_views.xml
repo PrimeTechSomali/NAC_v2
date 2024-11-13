@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_staff_form" model="ir.ui.view">
+        <field name="name">staff.management.form</field>
+        <field name="model">staff.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="position"/>
+                        <field name="contact_number"/>
+                        <field name="email"/>
+                    </group>
+                </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_staff_tree" model="ir.ui.view">
+        <field name="name">staff.management.tree</field>
+        <field name="model">staff.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="position"/>
+                <field name="contact_number"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_staff_management" model="ir.actions.act_window">
+        <field name="name">Staff</field>
+        <field name="res_model">staff.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_staff_management" name="Staff Management" parent="menu_ambulance_management" action="action_staff_management" sequence="60"/>
+</odoo>

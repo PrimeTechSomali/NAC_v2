@@ -1,0 +1,124 @@
+<odoo>
+    <!-- Top-level Ambulance Management Menu -->
+    <menuitem id="ambulance_management_menu" name="Ambulance Management" sequence="10"/>
+
+
+<record id="view_ambulance_dashboard_form" model="ir.ui.view">
+    <field name="name">ambulance.dashboard.form</field>
+    <field name="model">ambulance.dashboard</field>
+    <field name="arch" type="xml">
+        <form string="Ambulance Dashboard" class="ambulance-dashboard-texture">
+            <!-- Image at the Top -->
+            <div class="text-center mb-4">
+                <img src="https://beec.so/bg.png" 
+                     alt="Ambulance Dashboard" style="width: 1920px; height: 484px;"/>
+            </div>
+
+            <!-- Rounded Container for Buttons -->
+            <div class="row mt-4 p-4" style="background-color: rgba(255, 255, 255, 0.8); border-radius: 15px;">
+                <!-- Button for Dispatch Model -->
+                <div class="col-md-3 mb-4 text-center">
+                    <button type="action" class="btn btn-danger btn-lg w-100 rounded-pill" name="%(action_ambulance_request)d">
+                        <i class="fa fa-truck"></i> Dispatch
+                    </button>
+                </div>
+                <!-- Button for Create New Patient -->
+                <div class="col-md-3 mb-4 text-center">
+                    <button class="btn btn-success btn-lg w-100 rounded-pill" name="%(action_patient_management)d" type="action">
+                        <i class="fa fa-user-plus"></i> New Patient
+                    </button>
+                </div>
+                <!-- Button for Map -->
+                <div class="col-md-3 mb-4 text-center">
+                    <button type="button" class="btn btn-warning btn-lg w-100 rounded-pill" onclick="location.href='/your_map_url'" name="See Ambulances Location">
+                        <i class="fa fa-map"></i> Map
+                    </button>
+                </div>
+                <!-- Button for Call Patient -->
+                <div class="col-md-3 mb-4 text-center">
+                    <button class="btn btn-primary btn-lg w-100 rounded-pill" name="%(action_patient_management)d" type="action">
+                        <i class="fa fa-phone"></i> Call Patient
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Info Cards -->
+            <div class="row mt-4">
+                <!-- Card for Available Ambulances -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-ambulance"></i> Available Ambulances</h5>
+                            <p class="card-text"><field name="available_ambulances_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card for Total Patients -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-user-injured"></i> Total Patients</h5>
+                            <p class="card-text"><field name="total_patients_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card for Total Requests -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-file-medical"></i> Total Requests</h5>
+                            <p class="card-text"><field name="total_requests_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card for Requests In Progress -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-spinner"></i> Requests In Progress</h5>
+                            <p class="card-text"><field name="total_in_progress_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card for Completed Requests -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-check-circle"></i> Completed Requests</h5>
+                            <p class="card-text"><field name="total_completed_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card for Total Staff -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-white bg-primary h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-user-md"></i> Total Staff</h5>
+                            <p class="card-text"><field name="total_staff_count" readonly="1"/></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </field>
+</record>
+
+
+    <!-- Action for Ambulance Dashboard -->
+    <record id="action_ambulance_dashboard" model="ir.actions.act_window">
+        <field name="name">Ambulance Dashboard</field>
+        <field name="res_model">ambulance.dashboard</field>
+        <field name="view_mode">form,tree</field>
+        <field name="target">current</field>
+        <field name="view_id" ref="view_ambulance_dashboard_form"/>
+    </record>
+
+    <record id="action_patient_management" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">patient.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item for Ambulance Dashboard -->
+    <menuitem id="ambulance_dashboard_menu" name="Dashboard" parent="menu_ambulance_management" action="action_ambulance_dashboard" sequence="6"/>
+</odoo>

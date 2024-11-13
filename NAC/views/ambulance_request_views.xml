@@ -1,0 +1,144 @@
+<odoo>
+<record id="view_form_ambulance_request" model="ir.ui.view">
+    <field name="name">ambulance.request.form</field>
+    <field name="model">ambulance.request</field>
+    <field name="arch" type="xml">
+        <form string="Ambulance Request" create="false">
+    <header>
+        <!-- Status change buttons -->
+        <button name="intelligent_assign_ambulance" type="object" string="Auto Assign" 
+                class="btn-primary" icon="fa-ambulance" 
+                invisible="status != 'pending'"/>
+                
+        <button name="action_set_pending" type="object" string="Mark as Pending" 
+                class="btn-secondary" icon="fa-arrow-left" 
+                invisible="status == 'pending'"/>
+                
+        <button name="action_set_in_progress" type="object" string="Mark as In Progress" 
+                class="btn-info" icon="fa-arrow-right" 
+                invisible="status != 'pending'"/>
+                
+        <button name="action_set_completed" type="object" string="Mark as Completed" 
+                class="btn-success" icon="fa-check" 
+                invisible="status != 'in_progress'"/>
+                
+        <button name="action_set_canceled" type="object" string="Cancel Request" 
+                class="btn-danger" icon="fa-times" 
+                invisible="status in ('completed', 'canceled')"/>
+                
+        <field name="status" widget="statusbar" 
+            statusbar_visible="pending,in_progress,completed,canceled" 
+            statusbar_colors="pending:gray;in_progress:blue;completed:green;canceled:red"/> 
+
+        <!-- Broadcast button should be invisible for completed or canceled requests -->
+        <button name="broadcast_incident" type="object" string="Broadcast" 
+                class="btn-warning" icon="fa-bullhorn"
+                invisible="status in ('pending')"/>
+        
+        <!-- Incident state change buttons with disciplined visibility -->
+        <button name="action_set_reported" type="object" string="Mark as Reported" 
+                class="btn-primary" icon="fa-flag" 
+                invisible="incident_state != 'reported'"/>
+                
+        <button name="action_set_dispatched" type="object" string="Mark as Dispatched" 
+                class="btn-info" icon="fa-truck" 
+                invisible="incident_state != 'reported'"/>
+                
+        <button name="action_set_on_scene" type="object" string="Mark as On Scene" 
+                class="btn-warning" icon="fa-location-arrow" 
+                invisible="incident_state != 'dispatched'"/>
+                
+        <button name="action_set_intervention" type="object" string="Start Intervention" 
+                class="btn-danger" icon="fa-medkit" 
+                invisible="incident_state != 'on_scene'"/>
+                
+        <button name="action_set_reporting" type="object" string="Mark as Reporting" 
+                class="btn-secondary" icon="fa-file-alt" 
+                invisible="incident_state != 'intervention'"/>
+                
+        <field name="incident_state" widget="statusbar"
+            statusbar_visible="reported,dispatched,on_scene,intervention,reporting"
+            statusbar_colors="reported:blue;dispatched:orange;on_scene:purple;intervention:red;reporting:green"/>
+    </header>
+
+
+            <sheet>
+                <div class="oe_title">
+                    <h1><field name="name"/></h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="patient_id" required="1" options="{'no_create': True}"/>
+                        <field name="pickup_location" required="1" options="{'no_create': True}"/>
+                        <field name="destination_location" required="1" options="{'no_create': True}"/>
+                        <field name="patient_condition"/>
+                    </group>
+                    <group>
+                        <field name="request_time" readonly="1"/>
+                        <field name="scheduled_time"/>
+                        <field name="priority"/>
+                        <field name="incident_priority"/>
+                        <field name="response_time" readonly="1"/>
+                        <field name="eta" readonly="1"/>
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Assignment">
+                        <group>
+                            <field name="assigned_ambulance_id" options="{'no_create': True}"/>
+                            <field name="driver_id" options="{'no_create': True}"/>
+                        </group>
+                    </page>
+
+                    <page string="Caller Info">
+                        <group>
+                            <field name="caller_name"/>
+                            <field name="caller_phone"/>
+                        </group>
+                    </page>
+
+                    <page string="Map">
+                        <iframe 
+                            src="https://img.rezdy.com/PRODUCT_IMAGE/13699/Screen_Shot_2023_01_26_at_12.22.16_PM_lg.png" 
+                            width="100%" height="400">
+                        </iframe>
+                    </page>
+                </notebook>
+            </sheet>
+
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+
+
+
+    <record id="view_ambulance_request_tree" model="ir.ui.view">
+        <field name="name">ambulance.request.tree</field>
+        <field name="model">ambulance.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="pickup_location"/>
+                <field name="destination_location"/>
+                <field name="request_time"/>
+                <field name="assigned_ambulance_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_ambulance_request" model="ir.actions.act_window">
+        <field name="name">Ambulance Requests</field>
+        <field name="res_model">ambulance.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_ambulance_request" name="Ambulance Requests" parent="menu_ambulance_management" action="action_ambulance_request" sequence="20"/>
+</odoo>

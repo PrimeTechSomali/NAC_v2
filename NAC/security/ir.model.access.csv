@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ambulance_request,access_ambulance_request,model_ambulance_request,,1,1,1,1
+access_ambulance_management,access_ambulance_management,model_ambulance_management,,1,1,1,1
+access_equipment_management,access_equipment_management,model_equipment_management,,1,1,1,1
+access_location_management,access_location_management,model_location_management,,1,1,1,1
+access_patient_management,access_patient_management,model_patient_management,,1,1,1,1
+access_service_log,access_service_log,model_service_log,,1,1,1,1
+access_staff_management,access_staff_management,model_staff_management,,1,1,1,1

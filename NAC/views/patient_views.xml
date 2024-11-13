@@ -1,0 +1,160 @@
+<odoo>
+<record id="view_patient_form" model="ir.ui.view">
+    <field name="name">patient.management.form</field>
+    <field name="model">patient.management</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <h1>Patient Registration for National Ambulance Service</h1>
+                
+                <!-- Patient Information -->
+                <h2>Patient Information</h2>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="age"/>
+                    </group>
+                    <group>
+                        <field name="gender" widget="selection">
+                            <options>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </options>
+                        </field>
+                        <field name="medical_history" placeholder="Brief medical history (if any)"/>
+                    </group>
+                    <group>
+                        <field name="contact_number"/>
+                        <field name="address"/>
+                    </group>
+                </group>
+
+                <!-- Emergency Contact Information -->
+                <h2>Emergency Contact Information</h2>
+                <group>
+                    <group>
+                        <field name="emergency_contact_name"/>
+                        <field name="emergency_contact_relationship" widget="selection">
+                            <options>
+                                <option value="parent">Parent</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="spouse">Spouse</option>
+                                <option value="friend">Friend</option>
+                                <option value="other">Other</option>
+                            </options>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="emergency_contact_phone"/>
+                        <field name="emergency_contact_address"/>
+                    </group>
+                </group>
+
+                <!-- Medical Information -->
+                <h2>Medical Information</h2>
+                <group>
+                    <group>
+                        <field name="current_medications" placeholder="List any current medications"/>
+                        <field name="allergies" placeholder="List any known allergies"/>
+                    </group>
+                    <group>
+                        <field name="chronic_conditions" placeholder="List any chronic conditions"/>
+                        <field name="past_surgeries" placeholder="List past surgeries"/>
+                    </group>
+                </group>
+
+                <!-- Ambulance Service Specifics -->
+                <h2>Ambulance Service Specifics</h2>
+                <group>
+                    <group>
+                        <field name="service_type" widget="selection">
+                            <options>
+                                <option value="emergency">Emergency</option>
+                                <option value="non_emergency">Non-Emergency</option>
+                            </options>
+                        </field>
+                        <field name="transportation_mode" widget="selection">
+                            <options>
+                                <option value="wheelchair">Wheelchair</option>
+                                <option value="stretcher">Stretcher</option>
+                                <option value="normal">Normal Transport</option>
+                            </options>
+                        </field>
+                    </group>
+                </group>
+
+                <!-- Current Condition Details -->
+                <h2>Current Condition Details</h2>
+                <group>
+                    <group>
+                        <field name="chief_complaint" placeholder="Describe the chief complaint"/>
+                        <field name="onset_of_symptoms" placeholder="When did symptoms start?" widget="datetime"/>
+                    </group>
+                    <group>
+                        <field name="duration_of_symptoms" placeholder="Duration of symptoms (in hours)"/>
+                        <field name="pain_level" placeholder="Pain Level (1-10)"/>
+                    </group>
+                    <group>
+                        <field name="associated_symptoms" placeholder="List any associated symptoms"/>
+                        <field name="recent_travel_history" placeholder="Recent travel history (if relevant)"/>
+                    </group>
+                </group>
+
+                <!-- Vital Signs -->
+                <h2>Vital Signs</h2>
+                <group>
+                    <group>
+                        <field name="blood_pressure" placeholder="Blood Pressure (e.g., 120/80)"/>
+                        <field name="heart_rate" placeholder="Heart Rate (bpm)"/>
+                    </group>
+                    <group>
+                        <field name="respiratory_rate" placeholder="Respiratory Rate (breaths/min)"/>
+                        <field name="temperature" placeholder="Temperature (°C)"/>
+                        <field name="oxygen_saturation" placeholder="Oxygen Saturation Level (%)"/>
+                    </group>
+                </group>
+
+                <!-- Accessibility Needs -->
+                <h2>Accessibility Needs</h2>
+                <group>
+                    <group>
+                        <field name="mobility_issues" widget="boolean"/>
+                        <field name="language_preference" placeholder="Preferred Language"/>
+                    </group>
+                    <group>
+                        <field name="cognitive_challenges" placeholder="Describe any cognitive challenges"/>
+                    </group>
+                </group>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+
+
+    <record id="view_patient_tree" model="ir.ui.view">
+        <field name="name">patient.management.tree</field>
+        <field name="model">patient.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="contact_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_patient_management" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">patient.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_patient_management" name="Patient Management" parent="menu_ambulance_management" action="action_patient_management" sequence="40"/>
+</odoo>

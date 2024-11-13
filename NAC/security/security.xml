@@ -1,0 +1,14 @@
+<!-- security/security.xml -->
+<odoo>
+    <record id="group_ambulance_manager" model="res.groups">
+        <field name="name">Ambulance Manager</field>
+    </record>
+    
+    <record id="group_ambulance_driver" model="res.groups">
+        <field name="name">Ambulance Driver</field>
+    </record>
+
+    <record id="group_health_admin" model="res.groups">
+        <field name="name">Health Administrator</field>
+    </record>
+</odoo>

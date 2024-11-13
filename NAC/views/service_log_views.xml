@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_service_log_form" model="ir.ui.view">
+        <field name="name">service.log.form</field>
+        <field name="model">service.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="ambulance_id"/>
+                        <field name="service_date"/>
+                        <field name="service_type"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_service_log_tree" model="ir.ui.view">
+        <field name="name">service.log.tree</field>
+        <field name="model">service.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ambulance_id"/>
+                <field name="service_date"/>
+                <field name="service_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_service_log" model="ir.actions.act_window">
+        <field name="name">Service Logs</field>
+        <field name="res_model">service.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_service_log" name="Service Logs" parent="menu_ambulance_management" action="action_service_log" sequence="50"/>
+</odoo>
